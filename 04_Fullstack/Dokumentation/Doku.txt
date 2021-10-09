@@ -67,4 +67,38 @@ index.html
 ```
 Homepage neu laden, zum Testen ob alle Änderungen gleich auf Homepage übernommen werden.
 
+### Bootstrap einbinden
+
+in pom.xml
+```xml
+<dependency>
+            <groupId>org.webjars</groupId>
+            <artifactId>bootstrap</artifactId>
+            <version>4.3.1</version>
+        </dependency>
+        <dependency>
+            <groupId>org.webjars</groupId>
+            <artifactId>webjars-locator-core</artifactId>
+        </dependency>
+```
+
+in index.html
+```html
+<html lang="en" xml:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Welcome to Melmis Application</title>
+    <link rel="stylesheet" type="text/css" th:href="@{/webjars/bootstrap/css/bootstrap.min.css}"/>
+</head>
+```
+
+App restarten damit Änderungen übernommen werden.
+
+### Data Access Layer
+
+
+
+
+
+
 

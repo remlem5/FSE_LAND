@@ -1,0 +1,264 @@
+<<<<<<< HEAD
+# Aufgabe 2
+
+## Allgemeine Einstellungen im Projekt
+
+IntelliJ-Projekt mit Bootstrap anlegen:
+* Type: Maven
+* Language: Java
+* Project SDK: 15
+* Java: 11
+* Packaging: jar
+
+Dependencies:
+* Spring Boot DevTools
+* Spring Web
+* Thymeleaf
+* Spring Data JPA
+* MySQL Driver
+
+Verbindung mit MySQL Datenbank hat bei mir nicht auf Anhieb funktioniert. Troubleshooting im Internet gefunden...
+
+Neue Datenbank anlegen:
+* Name: usersdb
+* Collation:utf8mb4_general_ci
+
+Default Schemas auf usersdb setzen.
+
+Konfiguration für die Datenbank: (glaube ich, hab den Typ nicht ganz verstanden...)
+application.properties
+* spring.datasource.url=jdbc:mysql://localhost:3306/usersdb
+* spring.datasource.username=root
+* spring.datasource.password=
+* spring.jpa.hibernate.ddl-auto=update
+* spring.jpa.properties.hibernate.show_sql=true
+
+## Code Home Page
+
+### MainController
+
+```java
+@Controller
+public class MainController {
+
+    @GetMapping("")
+    public String showHomePage(){
+        return "index";
+    }
+}
+```
+
+Mit http://localhost:8080/ wird index.html angezeigt
+
+Zum Anzeigen der Änderungen in der index.html muss App immer neu gestartet werden.
+Kann in "Registry" geändert werden.
+Hab alles genau gleich gemacht wie im Video, aber der Punkt compiler.automake.allow.when.app.running existiert bei mir nicht...
+
+Workaround:
+Settings -> Advanced Settings -> Allow auto-make to start even if developed application is currently running
+
+Zusätzlich:
+Settings -> Build, Execution, Deployment -> Compiler -> Build project automatically
+
+Bei main-Methode links auf grünen Pfeil klicken -> Edit Run Configuration -> On 'Update' action: Update classes and resources und On frame deactivation: Update classes and resources.
+
+index.html
+```html
+<div align="center">
+```
+Homepage neu laden, zum Testen ob alle Änderungen gleich auf Homepage übernommen werden.
+
+### Bootstrap einbinden
+
+in pom.xml
+```xml
+<dependency>
+            <groupId>org.webjars</groupId>
+            <artifactId>bootstrap</artifactId>
+            <version>4.3.1</version>
+        </dependency>
+        <dependency>
+            <groupId>org.webjars</groupId>
+            <artifactId>webjars-locator-core</artifactId>
+        </dependency>
+```
+
+in index.html
+```html
+<html lang="en" xml:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Welcome to Melmis Application</title>
+    <link rel="stylesheet" type="text/css" th:href="@{/webjars/bootstrap/css/bootstrap.min.css}"/>
+</head>
+```
+
+App restarten damit Änderungen übernommen werden.
+
+### Data Access Layer
+
+Neues Package: user mit User-Klasse und UserRepo-Interface (extends CrudRepository<User, Integer>)
+
+User-Klasse:
+```java
+@Entity
+@Table(name="users")
+public class User {
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    private Integer id;
+
+    @Column(nullable = false, unique = true, length = 45)
+    private String email;
+
+    @Column(length = 15, nullable = false)
+    private String password;
+
+    @Column(length = 45, nullable = false, name = "first_name")
+    private String firstName;
+
+    @Column(length = 45, nullable = false, name = "last_name")
+    private String lastName;
+```
+getter-, setter- und toString-Methoden.
+
+UserRepoTest-Klasse:
+```java
+@DataJpaTest
+@AutoConfigureTestDatabase(replace = AutoConfigureTestDatabase.Replace.NONE)
+@Rollback(false)
+public class UserRepoTest {
+    @Autowired private UserRepo repo;
+
+    @Test
+    public void testAddNew(){
+        User user = new User();
+        user.setEmail("mtobias@tsn.at");
+        user.setPassword("5678");
+        user.setFirstName("Tobi");
+        user.setLastName("Melmi");
+
+        User savedUser = repo.save(user);
+
+        org.assertj.core.api.Assertions.assertThat(savedUser).isNotNull();
+        org.assertj.core.api.Assertions.assertThat(savedUser.getId()).isGreaterThan(0);
+    }
+
+    @Test
+    public void testListAll(){
+        Iterable<User> users = repo.findAll();
+        Assertions.assertThat(users).hasSizeGreaterThan(0);
+
+        for (User user: users){
+            System.out.println(user);
+        }
+    }
+
+    @Test
+    public void testUpdate(){
+        Integer userId = 1;
+        Optional<User> optionalUser = repo.findById(userId);
+        User user = optionalUser.get();
+        user.setPassword("4321");
+        repo.save(user);
+
+        User updatedUser = repo.findById(userId).get();
+        Assertions.assertThat(updatedUser.getPassword()).isEqualTo("4321");
+    }
+
+    @Test
+    public void testGet(){
+        Integer userId = 2;
+        Optional<User> optionalUser = repo.findById(userId);
+        Assertions.assertThat(optionalUser).isPresent();
+        System.out.println(optionalUser.get());
+    }
+
+    @Test
+    public void testDelete(){
+        Integer userId = 2;
+        repo.deleteById(userId);
+
+        Optional<User> optionalUser = repo.findById(userId);
+        Assertions.assertThat(optionalUser).isNotPresent();
+    }
+
+}
+```
+zum Testen der Datenbank und deren Funktionen.
+
+Was passiert habe ich alles verstanden, nur wie das alles genau funktioniert ist mir noch nicht ganz klar.
+
+
+=======
+# Aufgabe 2
+
+## Allgemeine Einstellungen im Projekt
+
+IntelliJ-Projekt mit Bootstrap anlegen:
+* Type: Maven
+* Language: Java
+* Project SDK: 15
+* Java: 11
+* Packaging: jar
+
+Dependencies:
+* Spring Boot DevTools
+* Spring Web
+* Thymeleaf
+* Spring Data JPA
+* MySQL Driver
+
+Verbindung mit MySQL Datenbank hat bei mir nicht auf Anhieb funktioniert. Troubleshooting im Internet gefunden...
+
+Neue Datenbank anlegen:
+* Name: usersdb
+* Collation:utf8mb4_general_ci
+
+Default Schemas auf usersdb setzen.
+
+Konfiguration für die Datenbank: (glaube ich, hab den Typ nicht ganz verstanden...)
+application.properties
+* spring.datasource.url=jdbc:mysql://localhost:3306/usersdb
+* spring.datasource.username=root
+* spring.datasource.password=
+* spring.jpa.hibernate.ddl-auto=update
+* spring.jpa.properties.hibernate.show_sql=true
+
+## Code Home Page
+
+### MainController
+
+```java
+@Controller
+public class MainController {
+
+    @GetMapping("")
+    public String showHomePage(){
+        return "index";
+    }
+}
+```
+
+Mit http://localhost:8080/ wird index.html angezeigt
+
+Zum Anzeigen der Änderungen in der index.html muss App immer neu gestartet werden.
+Kann in "Registry" geändert werden.
+Hab alles genau gleich gemacht wie im Video, aber der Punkt compiler.automake.allow.when.app.running existiert bei mir nicht...
+
+Workaround:
+Settings -> Advanced Settings -> Allow auto-make to start even if developed application is currently running
+
+Zusätzlich:
+Settings -> Build, Execution, Deployment -> Compiler -> Build project automatically
+
+Bei main-Methode links auf grünen Pfeil klicken -> Edit Run Configuration -> On 'Update' action: Update classes and resources und On frame deactivation: Update classes and resources.
+
+index.html
+```html
+<div align="center">
+```
+Homepage neu laden, zum Testen ob alle Änderungen gleich auf Homepage übernommen werden.
+
+
+>>>>>>> 447c0e51f6de469cb5425919c4196a5e19728fd7

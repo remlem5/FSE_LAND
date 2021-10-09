@@ -1,3 +1,4 @@
+<<<<<<< HEAD
 # Aufgabe 2
 
 ## Allgemeine Einstellungen im Projekt
@@ -189,3 +190,75 @@ zum Testen der Datenbank und deren Funktionen.
 Was passiert habe ich alles verstanden, nur wie das alles genau funktioniert ist mir noch nicht ganz klar.
 
 
+=======
+# Aufgabe 2
+
+## Allgemeine Einstellungen im Projekt
+
+IntelliJ-Projekt mit Bootstrap anlegen:
+* Type: Maven
+* Language: Java
+* Project SDK: 15
+* Java: 11
+* Packaging: jar
+
+Dependencies:
+* Spring Boot DevTools
+* Spring Web
+* Thymeleaf
+* Spring Data JPA
+* MySQL Driver
+
+Verbindung mit MySQL Datenbank hat bei mir nicht auf Anhieb funktioniert. Troubleshooting im Internet gefunden...
+
+Neue Datenbank anlegen:
+* Name: usersdb
+* Collation:utf8mb4_general_ci
+
+Default Schemas auf usersdb setzen.
+
+Konfiguration für die Datenbank: (glaube ich, hab den Typ nicht ganz verstanden...)
+application.properties
+* spring.datasource.url=jdbc:mysql://localhost:3306/usersdb
+* spring.datasource.username=root
+* spring.datasource.password=
+* spring.jpa.hibernate.ddl-auto=update
+* spring.jpa.properties.hibernate.show_sql=true
+
+## Code Home Page
+
+### MainController
+
+```java
+@Controller
+public class MainController {
+
+    @GetMapping("")
+    public String showHomePage(){
+        return "index";
+    }
+}
+```
+
+Mit http://localhost:8080/ wird index.html angezeigt
+
+Zum Anzeigen der Änderungen in der index.html muss App immer neu gestartet werden.
+Kann in "Registry" geändert werden.
+Hab alles genau gleich gemacht wie im Video, aber der Punkt compiler.automake.allow.when.app.running existiert bei mir nicht...
+
+Workaround:
+Settings -> Advanced Settings -> Allow auto-make to start even if developed application is currently running
+
+Zusätzlich:
+Settings -> Build, Execution, Deployment -> Compiler -> Build project automatically
+
+Bei main-Methode links auf grünen Pfeil klicken -> Edit Run Configuration -> On 'Update' action: Update classes and resources und On frame deactivation: Update classes and resources.
+
+index.html
+```html
+<div align="center">
+```
+Homepage neu laden, zum Testen ob alle Änderungen gleich auf Homepage übernommen werden.
+
+
+>>>>>>> 447c0e51f6de469cb5425919c4196a5e19728fd7

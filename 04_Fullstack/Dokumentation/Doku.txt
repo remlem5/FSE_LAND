@@ -1,4 +1,3 @@
-<<<<<<< HEAD
 # Aufgabe 2
 
 ## Allgemeine Einstellungen im Projekt
@@ -33,7 +32,6 @@ application.properties
 * spring.jpa.hibernate.ddl-auto=update
 * spring.jpa.properties.hibernate.show_sql=true
 
-## Code Home Page
 
 ### MainController
 
@@ -190,75 +188,236 @@ zum Testen der Datenbank und deren Funktionen.
 Was passiert habe ich alles verstanden, nur wie das alles genau funktioniert ist mir noch nicht ganz klar.
 
 
-=======
-# Aufgabe 2
+## Code Users Listing Page
 
-## Allgemeine Einstellungen im Projekt
+Beim Weitermachen habe ich einmal alles durchkompiliert. Alle Tests gestartet und nur Fehlermeldungen bekommen. 5 Minuten warten und einige Fehlermeldungen waren weg. Die Tests funktionieren trotzdem nicht alle...
 
-IntelliJ-Projekt mit Bootstrap anlegen:
-* Type: Maven
-* Language: Java
-* Project SDK: 15
-* Java: 11
-* Packaging: jar
-
-Dependencies:
-* Spring Boot DevTools
-* Spring Web
-* Thymeleaf
-* Spring Data JPA
-* MySQL Driver
-
-Verbindung mit MySQL Datenbank hat bei mir nicht auf Anhieb funktioniert. Troubleshooting im Internet gefunden...
-
-Neue Datenbank anlegen:
-* Name: usersdb
-* Collation:utf8mb4_general_ci
-
-Default Schemas auf usersdb setzen.
-
-Konfiguration für die Datenbank: (glaube ich, hab den Typ nicht ganz verstanden...)
-application.properties
-* spring.datasource.url=jdbc:mysql://localhost:3306/usersdb
-* spring.datasource.username=root
-* spring.datasource.password=
-* spring.jpa.hibernate.ddl-auto=update
-* spring.jpa.properties.hibernate.show_sql=true
-
-## Code Home Page
-
-### MainController
-
+UserService-Klasse:
 ```java
-@Controller
-public class MainController {
+package com.itkolleg.user;
 
-    @GetMapping("")
-    public String showHomePage(){
-        return "index";
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
+
+import java.util.List;
+
+@Service
+public class UserService {
+    @Autowired private UserRepo repo;
+
+    public List<User> listAll(){
+        return (List<User>) repo.findAll();
     }
 }
 ```
 
-Mit http://localhost:8080/ wird index.html angezeigt
+UserController-Klasse:
+```java
+package com.itkolleg.user;
 
-Zum Anzeigen der Änderungen in der index.html muss App immer neu gestartet werden.
-Kann in "Registry" geändert werden.
-Hab alles genau gleich gemacht wie im Video, aber der Punkt compiler.automake.allow.when.app.running existiert bei mir nicht...
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
+import org.springframework.web.bind.annotation.GetMapping;
 
-Workaround:
-Settings -> Advanced Settings -> Allow auto-make to start even if developed application is currently running
+import java.util.List;
 
-Zusätzlich:
-Settings -> Build, Execution, Deployment -> Compiler -> Build project automatically
+@Controller
+public class UserController {
+    @Autowired private UserService service;
 
-Bei main-Methode links auf grünen Pfeil klicken -> Edit Run Configuration -> On 'Update' action: Update classes and resources und On frame deactivation: Update classes and resources.
+    @GetMapping("/users")
+    public String showUserList(Model model){
+        List<User> listUsers = service.listAll();
+        model.addAttribute("listUsers", listUsers);
 
-index.html
-```html
-<div align="center">
+        return "users";
+    }
+}
 ```
-Homepage neu laden, zum Testen ob alle Änderungen gleich auf Homepage übernommen werden.
+
+users.html
+´´´html
+<!DOCTYPE html>
+<html lang="en" xml:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Manage Users</title>
+    <link rel="stylesheet" type="text/css" th:href="@{/webjars/bootstrap/css/bootstrap.min.css}"/>
+</head>
+<body>
+<div class="container-fluid">
+    <div><h2>Manage Users</h2></div>
+    <div class="m-2">
+        <a class="h3" th:href="@{/users/new}">Add New User</a>
+    </div>
+    <div>
+        <table class="table table-bordered">
+            <thead class="thead-dark">
+            <tr>
+                <th>ID</th>
+                <th>E-Mail</th>
+                <th>First Name</th>
+                <th>Last Name</th>
+                <th></th>
+            </tr>
+            </thead>
+            <tbody>
+            <th:block th:each="user : ${listUsers}">
+                <td>[[${user.id}]]</td>
+                <td>[[${user.email}]]</td>
+                <td>[[${user.firstName}]]</td>
+                <td>[[${user.lastName}]]</td>
+                <td>
+                    <a class="h4 mr-3" th:href="@{'/users/edit/' + ${user.id}}">Edit</a>
+                    <a class="h4" th:href="@{'/users/delete/' + ${user.id}}">Delete</a>
+                </td>
+                <tr></tr>
+            </th:block>
+            </tbody>
+        </table>
+    </div>
+</div>
+</body>
+</html>
+```
+
+Homepage neu laden und auf "Manage Users"-Link klicken.
+
+Seite sollte nun users.html anzeigen.
 
 
->>>>>>> 447c0e51f6de469cb5425919c4196a5e19728fd7
+Hab jetzt die fehlgeschlagenen Tests nochmal laufen lassen, jetzt funktioniert alles.........
+
+
+### Code Add User Function
+
+user_form.html
+
+
+#### Enabled checkbox
+
+Bei User.java ein enabled-Datenfeld (boolean) hinzugefügt.
+
+
+#### Code Form Validation
+
+wie in Pos maxlength, minlength, required, ...
+
+
+#### Code Cancel Button
+
+```html
+                <button type="button" class="btn btn-secondary m-2" onclick="cancelForm()">Cancel</button>
+            </div>
+        </div>
+    </form>
+</div>
+<script type="text/javascript">
+    function cancelForm(){
+        window.location="[[@{/users}]]";
+    }
+</script>
+
+```
+
+#### saveUser
+
+UserService-Klasse:
+```java
+public void save(User user) {
+        repo.save(user);
+    }
+```
+
+UserController-Klasse:
+```java
+    @PostMapping("/uers/save")
+    public String saveUser(User user){
+        service.save(user);
+        return "redirect:/users";
+    }
+```
+
+
+### Code Add User Function
+
+users.html
+´´´html
+<div th:if="${message}" class="alert alert-success text-center" >
+        [[${message}]]
+    </div>
+```
+
+UserController.java
+```java
+@PostMapping("/users/save")
+    public String saveUser(User user, RedirectAttributes ra){
+        service.save(user);
+        ra.addFlashAttribute("message", "User has been saved");
+        return "redirect:/users";
+    }
+```
+
+
+### Code Edit/Update User Function
+
+UserController.java
+```java
+
+@GetMapping("/users/edit/{id}")
+    public String showEditForm(@PathVariable("id") Integer id, Model model, RedirectAttributes ra){
+        try {
+            User user = service.get(id);
+            model.addAttribute("user", user);
+            model.addAttribute("pageTitle", "Edit User (ID "+id+")");
+            return "user_form";
+        } catch (UserNotFoundException e) {
+            ra.addFlashAttribute("message", "User has been saved");
+            return "redirect:/users";
+        }
+    }
+```
+
+UserService.java
+```java
+public User get(Integer id) throws UserNotFoundException {
+        Optional<User> result = repo.findById(id);
+        if (result.isPresent()){
+            return result.get();
+        } else {
+            throw new UserNotFoundException("Could not find User with ID: " + id);
+        }
+    }
+```
+
+### Code Delete User Function
+
+UserService.java
+```java
+public void delete(Integer id) throws UserNotFoundException {
+        Long count = repo.countById(id);
+        if (count == null || count == 0){
+            throw new UserNotFoundException("Could not find any user with ID: "+id);
+        }
+        repo.deleteById(id);
+    }
+```
+
+UserController.java
+```java
+@GetMapping("/users/delete/{id}")
+    public String deleteUser(@PathVariable("id") Integer id, RedirectAttributes ra) {
+        try {
+            service.delete(id);
+            ra.addFlashAttribute("message", "The user "+id+" has been deleted");
+        } catch (UserNotFoundException e) {
+            ra.addFlashAttribute("message", e.getMessage());
+        }
+        return "redirect:/users";
+    }
+```
+
+
+
+

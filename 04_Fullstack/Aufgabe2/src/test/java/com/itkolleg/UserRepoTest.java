@@ -23,15 +23,17 @@ public class UserRepoTest {
     @Test
     public void testAddNew(){
         User user = new User();
-        user.setEmail("mtobias@tsn.at");
-        user.setPassword("5678");
-        user.setFirstName("Tobi");
-        user.setLastName("Melmi");
+        user.setEmail("thpaulweber@tsn.at");
+        user.setPassword("0815");
+        user.setFirstName("Thomas");
+        user.setLastName("Hofmann");
 
         User savedUser = repo.save(user);
 
-        org.assertj.core.api.Assertions.assertThat(savedUser).isNotNull();
-        org.assertj.core.api.Assertions.assertThat(savedUser.getId()).isGreaterThan(0);
+        Assertions.assertThat(savedUser).isNotNull();
+        Assertions.assertThat(savedUser.getId()).isGreaterThan(0);
+        //org.assertj.core.api.Assertions.assertThat(savedUser).isNotNull();
+        //org.assertj.core.api.Assertions.assertThat(savedUser.getId()).isGreaterThan(0);
     }
 
     @Test

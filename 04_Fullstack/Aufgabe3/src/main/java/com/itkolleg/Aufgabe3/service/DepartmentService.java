@@ -1,6 +1,7 @@
 package com.itkolleg.Aufgabe3.service;
 
 import com.itkolleg.Aufgabe3.entitiy.Department;
+import com.itkolleg.Aufgabe3.exception.DepartmentNotFoundException;
 
 import java.util.List;
 
@@ -9,7 +10,7 @@ public interface DepartmentService {
 
     public List<Department> fetchDepartmentList();
 
-    public Department fetchDepartmentById(Long departmentId);
+    public Department fetchDepartmentById(Long departmentId) throws DepartmentNotFoundException;
 
     public void deleteDepartmentByID(Long departmentId);
 

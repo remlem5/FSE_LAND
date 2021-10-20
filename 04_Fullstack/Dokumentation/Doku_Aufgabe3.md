@@ -235,5 +235,190 @@ public interface DepartmentRepository extends JpaRepository<Department, Long> {
 @RequestBody erzeugt aus JSON-Objekt ein Objekt vom Typ Department
 
 
+## Testing API's using Rest Client
+
+in Insomnia neuen POST-Request erstellen
+http://localhost:8082/departments
+im JSOM-Format die Daten eingeben
+```JSON
+{
+	"departmentName":"IT",
+	"departmentAddress":"Vils",
+	"departmentCode":"IT-0815"
+}
+```
+aus "send" klicken: "200 OK" heißt dass Request erfolgreich war
+in H2-Console auf "Run" klicken: dann sollte ein Datensatz hinzugefügt werden
+Ich hab null Plan wie das jetzt funktioniert hat...
+
+zweites Department hinzufügen
+```JSON
+{
+	"departmentName":"CE",
+	"departmentAddress":"Vils",
+	"departmentCode":"CE-0816"
+}
+```
+
+Output in Insomnia
+```JSON
+{
+  "departmentId": 2,
+  "departmentName": "CE",
+  "departmentAddress": "Vils",
+  "departmentCode": "CE-0816"
+}
+```
+das bedeutet dass "save()" funktioniert
+
+Weil wir mit H2-DB arbeiten, werden bei jedem Neustart der Applikation, die Einträge gelöscht.
+
+
+## GetMapping
+
+Im DepartmentController 
+```java
+@GetMapping("/departments")
+    public List<Department> fetchDepartmentList(){
+        return departmentService.fetchDepartmentList();
+    }
+```
+
+In DepartmentServiceImpl
+```java
+    @Override
+    public List<Department> fetchDepartmentList() {
+        return departmentRepository.findAll();
+    }
+```
+Methode muss natürlich auch im DepartmentService-Interface vorhanden sein
+
+In Insomnia neuen GET-Request "Get Department" erstellen und URL aus Save Department kopieren
+
+"Send" klicken: Status "200 OK"
+Output:
+```JSON
+[
+  {
+    "departmentId": 1,
+    "departmentName": "CE",
+    "departmentAddress": "Vils",
+    "departmentCode": "CE-0816"
+  },
+  {
+    "departmentId": 2,
+    "departmentName": "IT",
+    "departmentAddress": "Vils",
+    "departmentCode": "IT-0815"
+  },
+  {
+    "departmentId": 3,
+    "departmentName": "EZ",
+    "departmentAddress": "Imst",
+    "departmentCode": "EZ-0817"
+  }
+]
+```
+
+## Fetching Data by ID
+
+gleich wie oben in 2 Klassen und im Interface Methode erstellen
+
+DepartmentServiceImpl
+```java
+@Override
+    public Department fetchDepartmentById(Long departmentId) {
+        return departmentRepository.findById(departmentId).get();
+    }
+```
+
+In Insomnia kommen bei Get-Request jetzt keine Daten zurück, da sie jedes mal gelöscht werden wenn App neu geladen wird.
+Also Daten über "Save Department" wieder einfügen.
+
+Wenn Daten eingefügt worden sind:
+im Get Department http://localhost:8082/departments/2 als URL einfügen
+Output:
+```JSON
+{
+  "departmentId": 2,
+  "departmentName": "IT",
+  "departmentAddress": "Vils",
+  "departmentCode": "IT-0815"
+}
+```
+
+
+## Deleting Data
+
+wieder in allen 3 Klassen die Methode erzeugen
+DepartmentServiceImpl.java
+```java
+@Override
+    public void deleteDepartmentByID(Long departmentId) {
+        departmentRepository.deleteById(departmentId);
+    }
+```
+
+Departments in Insomnia hinzufügen
+Neuen Delete-Request "Delete Department" erzeugen
+gleich URL wie bei Get Department:
+http://localhost:8082/departments/1
+
+Status 200 OK
+"Department deleted successfully!"
+
+Get Department nochmals ausführen. Department mit ID 1 ist gelöscht
+
+
+## Updating Data
+
+DepartmentController.java
+```java
+@PutMapping("/departments/{id}")
+    public Department updateDepartment(@PathVariable("id") Long departmentId, @RequestBody Department department){
+        return departmentService.updateDepartment(departmentId, department);
+    }
+```
+
+Methode wieder im DepartmentService Interface
+und in der DepartmentServiceImpl-Klasse erzeugen
+
+DepartmentServiceImpl.java
+```java
+@Override
+    public Department updateDepartment(Long departmentId, Department department) {
+        Department depDB = departmentRepository.findById(departmentId).get();
+
+        if(Objects.nonNull(department.getDepartmentName()) && !"".equalsIgnoreCase(department.getDepartmentName())){
+            depDB.setDepartmentName(department.getDepartmentName());
+        }
+        if(Objects.nonNull(department.getDepartmentCode()) && !"".equalsIgnoreCase(department.getDepartmentCode())){
+            depDB.setDepartmentCode(department.getDepartmentCode());
+        }
+        if(Objects.nonNull(department.getDepartmentAddress()) && !"".equalsIgnoreCase(department.getDepartmentAddress())){
+            depDB.setDepartmentAddress(department.getDepartmentAddress());
+        }
+        return departmentRepository.save(depDB);
+    }
+```
+Jeder Wert in DB des übergebenen Departments wird überprüft ob der Wert null oder "" ist
+
+Neuen "PUT-Request" Update Department erzeugen. Bei "No Body" "JSON" auswählen
+
+URL und JSON-Objekt aus POST-Request kopieren und einfügen. An URL noch DepartmentId anhängen (/2)
+
+DepartmentName ändern und "Send"
+Status 200 OK
+Neues JSON Objekt erscheint im rechten Fenster
+Änderung auch in H2-Konsole sichtbar
+
+Wenn man im PUT-Request nur
+```JSON
+{
+	"departmentAddress":"Imst"
+}
+```
+schreibt und DepartmentId in URL mitgibt, wird nur die DepartmentAddress verändert.
+
 
 

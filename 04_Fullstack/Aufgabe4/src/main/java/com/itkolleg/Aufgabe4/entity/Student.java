@@ -7,7 +7,7 @@ import lombok.NoArgsConstructor;
 
 import javax.persistence.*;
 
-@Entity
+@Entity(name = "tbl_student")
 @Data
 @AllArgsConstructor
 @NoArgsConstructor
@@ -33,7 +33,7 @@ public class Student {
             name = "email_address",
             nullable = false)
     private String emailId;
-    private String guardianName;
-    private String guardianEmail;
-    private String guardianMobile;
+
+    @Embedded
+    private Guardian guardian;
 }

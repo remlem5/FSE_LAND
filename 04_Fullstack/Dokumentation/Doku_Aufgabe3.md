@@ -1,5 +1,7 @@
 # start.spring.io
 
+https://www.youtube.com/watch?v=c3gKseNAs9w
+
 * Maven Project
 * Java
 * Spring Boot 2.5.5
@@ -419,6 +421,288 @@ Wenn man im PUT-Request nur
 }
 ```
 schreibt und DepartmentId in URL mitgibt, wird nur die DepartmentAddress verändert.
+
+
+## Fetch Data by Name
+
+DepartmentController.java
+```java
+@GetMapping("/departments/name/{name}")
+    public Department fetchDepartmentByName(@PathVariable("name") String depName){
+        return departmentService.fetchDepartmentByName(depName);
+    }
+```
+
+DepartmentRepository.java
+```java
+public Department findByDepartmentName(String depName);
+```
+Wenn man im DepRepo die Namenskonvention findBy"Datenfeld"() einhält, weiß das Programm selber, welche Spalte in der Tabelle durchsucht werden muss.
+
+Suche ist noch Case-Sensitive.
+
+Im DepRepo einfach IgnoreCase anhängen.
+```java
+public Department findByDepartmentNameIgnoreCase(String depName);
+```
+und diese Methode aufrufen.
+Suche ist somit Case-Insensitive.
+
+Doku für vorgegebene Methoden-Bezeichnung:
+https://docs.spring.io/spring-data/jpa/docs/current/reference/html/#jpa.query-methods.query-creation
+
+Falls benötigte Methode nicht vorhanden ist, kann mit @Query Annotation eine SQL-Abfragae erstellt werden
+?1 steht dabei für den ersten übergebenen Parameter. ?2 für den zweiten, ...
+zum Beispiel
+```java
+public interface UserRepository extends JpaRepository<User, Long> {
+
+  @Query("select u from User u where u.emailAddress = ?1")
+  User findByEmailAddress(String emailAddress);
+}
+```
+
+## Hibernate Validation
+Wird verwendet um eingegebene Dateun zu validieren.
+im pom.xml
+```xml
+<dependency>
+	<groupId>org.springframework.boot</groupId>
+	<artifactId>spring-boot-starter-validation</artifactId>
+</dependency>
+```
+
+in Department.java
+```java
+@NotBlank(message = "Department Name is required")
+    private String departmentName;
+```
+bedeutet dass Name nicht leer sein darf. Message wird angezeigt wenn Validierung fehrschlägt.
+
+im DepartmentController
+```java
+    @PostMapping("/departments")
+    public Department saveDepartment(@Valid @RequestBody Department department){
+        return departmentService.saveDepartment(department);
+    }
+```
+@Valid gibt RequestBody an Validierung weiter.
+
+Wenn in Insomnia beim POST-Request kein Name mitgegeben wird, wird Code angezeigt.
+Ganz unten, nach der Fehlermeldung, erscheint die Message.
+
+Gibt viele weitere Validierungen:
+```java
+@Length(max = 5, min = 2)
+@Size(max = 10, min = 0)
+€Email
+@Positive   //bei Zahlen
+@Negative
+@PositiveOrZero
+@Future     //beim Datum
+@FutureOrPresent
+@Past
+```
+Message ist optional
+
+
+## Adding Loggers
+im DepartmentController
+```java
+private final Logger LOGGER = LoggerFactory.getLogger(DepartmentController.class);
+```
+
+```java
+    @GetMapping("/departments")
+    public List<Department> fetchDepartmentList(){
+        LOGGER.info("Inside fetchDepartmentList of DepartmentController");
+        return departmentService.fetchDepartmentList();
+    }
+
+    @GetMapping("/departments/{id}")
+    public Department fetchDepartmentById(@PathVariable("id") Long departmentId){
+        return departmentService.fetchDepartmentById(departmentId);
+    }
+```
+jeder Aufruf diese Methoden wird nun geloggt.
+
+Wenn jetzt ein neues Department hinzugefügt wird, erscheint in der Konsole im IntelliJ die Logging-Message.
+
+Funktioniert auch bei GET.
+
+
+## Project Lombok
+Im Department.java: Getter und Setter sind eigentlich überflüssig. Nur Datenfelder werden benötigt.
+
+Lombok ersetzt alle Getter und Setter.
+
+pom.xml
+```xml
+<dependency>
+	<groupId>org.projectlombok</groupId>
+	<artifactId>lombok</artifactId>
+	<optional>true</optional>
+</dependency>
+```
+und bei plugins in pom.xml
+```xml
+<plugin>
+	<groupId>org.springframework.boot</groupId>
+	<artifactId>spring-boot-maven-plugin</artifactId>
+	<configuration>
+		<excludes>
+			<exclude>
+				<groupId>org.projectlombok</groupId>
+				<artifaceId>lombok</artifaceId>
+			</exclude>
+		</excludes>
+	</configuration>
+</plugin>
+```
+
+Lombok Plugin muss in Settings auch aktiviert sein.
+
+im Department.java können nun alle Konstruktoren, Getter, Setter und toString entfernt werden.
+
+Department.java
+```java
+@Entity
+@Data
+@NoArgsConstructor
+@AllArgsConstructor
+@Builder
+public class Department {
+
+    @Id
+    @GeneratedValue(strategy = GenerationType.AUTO)
+    private Long departmentId;
+
+    @NotBlank(message = "Department Name is required")
+    @Length(max = 5, min = 2, message = "Name zu lang oder zu kurz")
+    private String departmentName;
+    private String departmentAddress;
+    private String departmentCode;
+
+}
+```
+Das ist nun die komplette Klasse.
+
+Falls nur Getter erwünscht sind, statt @Data einfach @Getter schreiben.
+@Data ersetzt Getter und Setter.
+@NoArgsContructor ersetzt Konstruktor ohne Parameter
+@AllArgsContructor ersetzt Konstruktor mit allen Parametern.
+@Builder wird später erklärt.
+
+
+## Exception Handling
+
+Bei Exceptions werden in Insomnia jetzt die kompletten ErrorMessages ausgegeben.
+
+DepartmentNotFoundException.java erstellt
+
+DepartmentController.java
+```java
+@GetMapping("/departments/{id}")
+public Department fetchDepartmentById(@PathVariable("id") Long departmentId) throws DepartmentNotFoundException {
+    return departmentService.fetchDepartmentById(departmentId);
+}
+```
+throws in allen Methodensignaturen hinzufügen
+
+Message wird in Insomnia immer noch ganz am Ende erst angezeigt.
+
+Neue Klasse 
+```java
+@ControllerAdvice
+@ResponseStatus
+public class RestResponseEntityExceptionHandler extends ResponseEntityExceptionHandler {
+
+    @ExceptionHandler(DepartmentNotFoundException.class)
+    public ResponseEntity<ErrorMessage> departmentNotFoundExceptino(DepartmentNotFoundException dNF, WebRequest request){
+        ErrorMessage message = new ErrorMessage(HttpStatus.NOT_FOUND, dNF.getMessage());
+        return ResponseEntity.status(HttpStatus.NOT_FOUND).body(message);
+    }
+}
+```
+@ControllerAdvice händelt glaube ich alle Exceptions
+
+Methode für jede Exception muss implementiert werden.
+
+DepartmentNotFoundException.java
+```java
+package com.itkolleg.Aufgabe3.exception;
+
+public class DepartmentNotFoundException extends Exception{
+
+    public DepartmentNotFoundException(){
+        super();
+    }
+
+    public DepartmentNotFoundException(String message){
+        super(message);
+    }
+
+    public DepartmentNotFoundException(String message, Throwable cause){
+        super(message, cause);
+    }
+
+    public DepartmentNotFoundException(Throwable cause){
+        super(cause);
+    }
+
+    protected DepartmentNotFoundException(String message, Throwable cause, boolean enableSuppression, boolean writableStackTrace) {
+        super(message, cause, enableSuppression, writableStackTrace);
+    }
+}
+```
+
+ErrorMessage.java
+```java
+@Data
+@NoArgsConstructor
+@AllArgsConstructor
+public class ErrorMessage {
+
+    private HttpStatus status;
+    private String message;
+}
+```
+NULL Plan was gerade passiert ist...
+
+Jetzt wird in Insomnia nur noch
+```JSON
+{
+  "status": "NOT_FOUND",
+  "message": "Department not found"
+}
+```
+ausgegeben.
+
+
+## Changing H2 -> MySQL
+
+application.properties
+
+spring.jpa.hibernate.ddl-auto=update
+spring.datasource.url=jdbc:mysql://localhost:3306/dcbapp
+spring.datasource.username=springuser
+spring.datasource.password=ThePassword
+spring.datasource.driver-class-name =com.mysql.jdbc.Driver
+spring.jpa.show-sql: true
+
+Rest auskommentieren
+
+im pom.xml
+```xml
+<dependency>
+    <groupId>mysql</groupId>
+    <artifactId>mysql-connector-java</artifactId>
+    <scope>runtime</scope>
+</dependency>
+```
+
+
+
 
 
 

@@ -10,8 +10,8 @@ public class Employee {
 
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
-    private Long empId;
+    public Long empId;
 
-    private String firstName;
-    private String lastName;
+    public String firstName;
+    public String lastName;
 }

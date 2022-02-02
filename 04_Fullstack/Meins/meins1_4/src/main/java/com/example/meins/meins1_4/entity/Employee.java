@@ -17,7 +17,7 @@ public class Employee {
     @JoinColumn(name = "comp_id", referencedColumnName = "compId")
     public Company company;*/
 
-    @OneToOne(cascade = CascadeType.ALL)
+    @ManyToOne()
     @JoinColumn(name = "dep_id", referencedColumnName = "depId")
     public Department department;
 

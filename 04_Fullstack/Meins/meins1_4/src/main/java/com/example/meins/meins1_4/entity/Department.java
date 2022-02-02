@@ -12,7 +12,7 @@ public class Department {
 
     public String depName;
 
-    @ManyToOne(cascade = CascadeType.ALL)
+    @ManyToOne()
     @JoinColumn(name = "comp_id", referencedColumnName = "compId")
     public Company company;
 

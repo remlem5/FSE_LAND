@@ -5,7 +5,24 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="ffd46af5-5508-4f59-b700-7ce84b8d0d47" name="Changes" comment="">
-      <change beforePath="$PROJECT_DIR$/../../~$BC_Uebungszettel_V3.docx" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/dataaccess/MySqlCourseRepository.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/dataaccess/MySqlCourseRepository.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/ui/Cli.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/ui/Cli.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../03_Meine_Projekte/01/.idea/.gitignore" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../03_Meine_Projekte/01/.idea/.name" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../03_Meine_Projekte/01/.idea/compiler.xml" beforeDir="false" afterPath="$PROJECT_DIR$/../../03_Meine_Projekte/01/.idea/compiler.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../03_Meine_Projekte/01/.idea/uiDesigner.xml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../03_Meine_Projekte/01/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/../../03_Meine_Projekte/01/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../03_Meine_Projekte/01/pom.xml" beforeDir="false" afterPath="$PROJECT_DIR$/../../03_Meine_Projekte/01/pom.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../03_Meine_Projekte/01/src/main/java/Main.java" beforeDir="false" afterPath="$PROJECT_DIR$/../../03_Meine_Projekte/01/src/main/java/Main.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../03_Meine_Projekte/01/src/main/java/dataaccess/BaseRepo.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../03_Meine_Projekte/01/src/main/java/dataaccess/DatabaseConnection.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../03_Meine_Projekte/01/src/main/java/dataaccess/SiteRepo.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../03_Meine_Projekte/01/src/main/java/dataaccess/SqlSiteRepo.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../03_Meine_Projekte/01/src/main/java/domain/BaseEntity.java" beforeDir="false" afterPath="$PROJECT_DIR$/../../03_Meine_Projekte/01/src/main/java/domain/BaseEntity.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../03_Meine_Projekte/01/src/main/java/domain/Site.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../03_Meine_Projekte/01/src/main/java/exceptions/DataBaseException.java" beforeDir="false" afterPath="$PROJECT_DIR$/../../03_Meine_Projekte/01/src/main/java/exceptions/DataBaseException.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../03_Meine_Projekte/01/src/main/java/ui/SiteCli.java" beforeDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -38,6 +55,10 @@
     <property name="RunOnceActivity.OpenProjectViewOnStart" value="true" />
     <property name="RunOnceActivity.ShowReadmeOnStart" value="true" />
     <property name="WebServerToolWindowFactoryState" value="false" />
+    <property name="last_opened_file_path" value="$PROJECT_DIR$" />
+    <property name="project.structure.last.edited" value="Modules" />
+    <property name="project.structure.proportion" value="0.0" />
+    <property name="project.structure.side.proportion" value="0.0" />
   </component>
   <component name="RecentsManager">
     <key name="CreateClassDialog.RecentsKey">
@@ -72,10 +93,30 @@
       <workItem from="1645103077775" duration="64000" />
       <workItem from="1645172022470" duration="4298000" />
       <workItem from="1645186977137" duration="4098000" />
+      <workItem from="1645379054221" duration="275000" />
+      <workItem from="1645429893598" duration="5000" />
+      <workItem from="1645464180155" duration="3000" />
+      <workItem from="1645468865804" duration="2000" />
+      <workItem from="1645522547533" duration="458000" />
+      <workItem from="1645523717348" duration="1000" />
+      <workItem from="1645552480325" duration="3094000" />
+      <workItem from="1645594877404" duration="1409000" />
+      <workItem from="1645602901099" duration="4998000" />
     </task>
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
     <option name="version" value="3" />
+  </component>
+  <component name="Vcs.Log.Tabs.Properties">
+    <option name="TAB_STATES">
+      <map>
+        <entry key="MAIN">
+          <value>
+            <State />
+          </value>
+        </entry>
+      </map>
+    </option>
   </component>
 </project>

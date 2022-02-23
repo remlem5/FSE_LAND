@@ -153,9 +153,9 @@ public class Cli {
                 );
             }
         } catch (DatabaseException databaseException) {
-            System.out.println("Datenbankfehler beim Löschen: " + databaseException.getMessage());
+            System.out.println("Datenbankfehler beim Bearbeiten: " + databaseException.getMessage());
         } catch (Exception e) {
-            System.out.println("Unbekannter Fehler beim Löss: " + e.getMessage());
+            System.out.println("Unbekannter Fehler beim Bearbeiten: " + e.getMessage());
         }
     }
 

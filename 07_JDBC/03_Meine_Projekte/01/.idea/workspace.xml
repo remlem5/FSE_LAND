@@ -5,24 +5,8 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="32587bc4-01dc-46c9-b438-bef4b18ae1eb" name="Changes" comment="">
-      <change beforePath="$PROJECT_DIR$/../../02_JDBC_und_DAO/Project/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/../../02_JDBC_und_DAO/Project/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../../02_JDBC_und_DAO/Project/src/main/java/dataaccess/MySqlCourseRepository.java" beforeDir="false" afterPath="$PROJECT_DIR$/../../02_JDBC_und_DAO/Project/src/main/java/dataaccess/MySqlCourseRepository.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../../02_JDBC_und_DAO/Project/src/main/java/ui/Cli.java" beforeDir="false" afterPath="$PROJECT_DIR$/../../02_JDBC_und_DAO/Project/src/main/java/ui/Cli.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/.gitignore" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/.name" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/compiler.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/compiler.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/uiDesigner.xml" beforeDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/pom.xml" beforeDir="false" afterPath="$PROJECT_DIR$/pom.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/Main.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/Main.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/dataaccess/BaseRepo.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/dataaccess/DatabaseConnection.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/dataaccess/SiteRepo.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/dataaccess/SqlSiteRepo.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/domain/BaseEntity.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/domain/BaseEntity.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/domain/Site.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/exceptions/DataBaseException.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/exceptions/DataBaseException.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/ui/SiteCli.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Mitschrift.md" beforeDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -86,6 +70,7 @@
       <workItem from="1645594884521" duration="1534000" />
       <workItem from="1645602910597" duration="6282000" />
       <workItem from="1645631203369" duration="606000" />
+      <workItem from="1645783384103" duration="1187000" />
     </task>
     <servers />
   </component>

@@ -9,7 +9,7 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 
-public class MySQLStudentRepository implements MyStundentRepository{
+public class MySQLStudentRepository implements MyStudentRepository {
 
     private Connection con;
 

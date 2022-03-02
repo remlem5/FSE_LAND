@@ -1,6 +1,6 @@
 package ui;
 
-import dataaccess.MyStundentRepository;
+import dataaccess.MyStudentRepository;
 import domain.Student;
 import exceptions.DatabaseException;
 
@@ -12,9 +12,9 @@ import java.util.Scanner;
 public class StudentCli {
 
     Scanner scan;
-    MyStundentRepository studentRepo;
+    MyStudentRepository studentRepo;
 
-    public StudentCli(MyStundentRepository studentRepo){
+    public StudentCli(MyStudentRepository studentRepo){
         this.scan = new Scanner(System.in);
         this.studentRepo = studentRepo;
     }

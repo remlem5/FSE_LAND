@@ -40,6 +40,9 @@ public class Cli {
                         System.out.println("Datenbankfehler! " + e.getMessage());
                     }
                     break;
+                case "x":
+                    System.out.println("Bye bye");
+                    break;
                 default:
                     inputError();
                     break;

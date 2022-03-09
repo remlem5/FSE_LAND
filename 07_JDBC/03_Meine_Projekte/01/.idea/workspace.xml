@@ -6,9 +6,11 @@
   <component name="ChangeListManager">
     <list default="true" id="32587bc4-01dc-46c9-b438-bef4b18ae1eb" name="Changes" comment="">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../02/src/main/java/dataaccess/MySQLStudentRepository.java" beforeDir="false" afterPath="$PROJECT_DIR$/../02/src/main/java/dataaccess/MySQLStudentRepository.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../02/src/main/java/dataaccess/MyStundentRepository.java" beforeDir="false" afterPath="$PROJECT_DIR$/../02/src/main/java/dataaccess/MyStudentRepository.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../02/src/main/java/ui/StudentCli.java" beforeDir="false" afterPath="$PROJECT_DIR$/../02/src/main/java/ui/StudentCli.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../02/src/main/java/ui/Cli.java" beforeDir="false" afterPath="$PROJECT_DIR$/../02/src/main/java/ui/Cli.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../02/target/classes/dataaccess/MySQLStudentRepository.class" beforeDir="false" afterPath="$PROJECT_DIR$/../02/target/classes/dataaccess/MySQLStudentRepository.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../02/target/classes/dataaccess/MyStundentRepository.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../02/target/classes/ui/Cli.class" beforeDir="false" afterPath="$PROJECT_DIR$/../02/target/classes/ui/Cli.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../02/target/classes/ui/StudentCli.class" beforeDir="false" afterPath="$PROJECT_DIR$/../02/target/classes/ui/StudentCli.class" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -76,6 +78,8 @@
       <workItem from="1645863406249" duration="15000" />
       <workItem from="1646051800790" duration="1000" />
       <workItem from="1646159327468" duration="896000" />
+      <workItem from="1646198959785" duration="618000" />
+      <workItem from="1646207884358" duration="2164000" />
     </task>
     <servers />
   </component>

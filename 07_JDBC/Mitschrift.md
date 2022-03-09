@@ -7,13 +7,13 @@ DAO ist ein Muster für die Gestaltung von Programmierschnittstellen (APIs). Wen
 ## Eigenschaften
 * DAOs abstrahieren den Zugriff auf DBs nicht vollständig, da sie nicht für die Transformation der Daten in die Struktur der Datenbank verantwortlich sind
 * DAOs sind jeweils für ein spezielles Speichermedium optimiert. Der Zugriff auf dieses Medium wird über das vom DAO vorgegebene bzw. zu implementierende API vorgenommen.
-* DAOs minimieren den Portierungsaufwand einer Anwendung beim Wechsel des Speichermediums.\
+* DAOs minimieren den Portierungsaufwand einer Anwendung beim Wechsel des Speichermediums.
 
 Eng verwandt mit dem DAO ist das Entwurfsmuster Transferobjekt. Dieses übernimmt im Zusammenspiel mit dem DAO die Transformation der aus der Datenquelle kommenden Daten in die von der Applikation gewünschte Form. Bei der objektrelationalen Abbildung werden so objektorientierte Daten in relationale Form transformiert.
 
 
 # Objektrelationales Mapping
-Objektrelationale Abbildung
+Objektrelationale Abbildung\
 Eine Technik der Softwareentwicklung, mit der ein in einer objektorientierte Programmiersprache geschriebenes Anwendungsprogramm seine Objekte in einer relationalen Datenbank ablegen kann. Dem Programm erscheint die DB dann als objektorientierte Datenbank, was die Programmierung erleichtert.
 
 ## Prinzip
@@ -30,7 +30,7 @@ Im einfachsten Fall werden Klassen auf Tabellen abgebildet, jedes Objekt entspri
 
 
 # Singleton-Pattern
-Einzelstück
+Einzelstück\
 Entwurfsmuster (Erzeugungsmuster). Stellt sicher, dass von einer Klasse genau ein Objekt existiert. Dieses Singleton ist darüber hinaus üblicherweise global verfügbar.
 
 ## Verwendung
@@ -39,10 +39,10 @@ Entwurfsmuster (Erzeugungsmuster). Stellt sicher, dass von einer Klasse genau ei
 
 ## Eigenschaften
 * erzeugt und verwaltet das einzige Objekt der Klasse
-* bietet globalen Zugriff auf dieses Objekt über eine Instanzoperation (getInstance())\
+* bietet globalen Zugriff auf dieses Objekt über eine Instanzoperation (getInstance())
 
 Dabei ist
-* die Instanzoperation ein Klassenmethode, das heißt statisch gebunden
+* die Instanzoperation eine Klassenmethode, das heißt statisch gebunden
 * das private Attribut "Instanz" (singelton) ein Klassenattribut, das heißt ein statisches Attribut
 
 ## Vorteile
@@ -70,7 +70,7 @@ Die meisten Runtime Exceptions resultieren aus Situationen, die vermeidbar gewes
 ## Checked Exceptions
 Alle Exceptions, die nicht Unterklassen von RuntimeException sind, gehören zur Gruppe der checked Exceptions. Was bedeutet das, wenn eine Exception als "checked" definiert ist?\
 Checked Exceptions sind "geprüfte" Exceptions, das heißt, dass der Compiler zur Übersetzungszeit eine Prüfung in Form eines try-catch-Mechanismus vom Programmierer einfordert. Fehlt das entsprechende Exception-Handling, ist der Code nicht compilierbar. Wir müssen also bestätigen, dass wir uns des Risikos eines bestimmten Methodenaufrufs bewusst sind. Eben das ist der Unterschied zu den RuntimeExceptions: Diese werden vom Compiler ignoriert und auch ohne Exception-Handling "ungeprüft" (unchecked) durchgelassen.\
-Checked Exceptions sind für Fälle gedacht, in denen wir damit rechnen sollten, dass etwas schieflaufen könnte. Wenn wir zum Beispiel eine Datei schreiben wollen, können wir nicht garantieren, dass die Datei z.B. nicht schreibgeschützt ist. Das liegt außerhalb der "Macht" unseres Programms. In solchen Fällen werden wir als Programmierer vom Compiler "gezwungen", den Erfolg des riskanten Vorhabens zu überprüfen.\
+Checked Exceptions sind für Fälle gedacht, in denen wir damit rechnen sollten, dass etwas schieflaufen könnte. Wenn wir zum Beispiel eine Datei schreiben wollen, können wir nicht garantieren, dass die Datei z.B. nicht schreibgeschützt ist. Das liegt außerhalb der "Macht" unseres Programms. In solchen Fällen werden wir als Programmierer vom Compiler "gezwungen", den Erfolg des riskanten Vorhabens zu überprüfen.
 
 ### Beispiele:
 * FileNotFoundException
@@ -95,13 +95,13 @@ Wir können die Behandlung von checked Exceptions auf andere Methoden auf dem St
 
 # Abstrakte Klassen
 Eine Klasse die sich nicht instanziieren lässt, d.h. es lassen sich keine Objekte von ihr erzeugen, und dient somit lediglich als Strukturelement innerhalb einer Klassenhierarchie.\
-Als Basisklassen in einer Klassenhierarchie können abstrakte Klassen grundlegende Eigenschafte ihrer abgeleiteten Klassen festlegen, ohne diese bereits konkret zu implementieren. Leitet eine Klasse von einer abstrakten Klasse ab, müssen alle vererbten abstrakten Methoden überschrieben und implementiert werden, damit die erbende Klasse selbst nicht abstrakt ist.\
+Als Basisklassen in einer Klassenhierarchie können abstrakte Klassen grundlegende Eigenschaften ihrer abgeleiteten Klassen festlegen, ohne diese bereits konkret zu implementieren. Leitet eine Klasse von einer abstrakten Klasse ab, müssen alle vererbten abstrakten Methoden überschrieben und implementiert werden, damit die erbende Klasse selbst nicht abstrakt ist.\
 Abstrakte Klassen können nicht selbst instanziiert werden, nur Spezialisierungen von diesen. Dennoch können Teile des Quelltextes allgemein gehalten und nur unter Verwendung der Eigenschaften des abstrakten Basistyps implementiert werden. Durch Polymorphie kommen dabei die speziellen Implementierungen der nicht abstrakten abgeleiteteten Klassen zur Ausführung.
 
 
 # Interfaces
-(Schinttstelle)
-Softwareschnittstellen oder softwareseitige Datenschnittstellen sind logische Berührungspunkte in einem Softwaresystem: Sie ermöglichen und regeln den Austausch von Kommandos und Daten zwischen verschiedenen Prozessen und Komponenten. In der Software benutzte Schnittstellen lassen sich grundsätzlich unterscheiden in:\
+(Schinttstelle)\
+Softwareschnittstellen oder softwareseitige Datenschnittstellen sind logische Berührungspunkte in einem Softwaresystem: Sie ermöglichen und regeln den Austausch von Kommandos und Daten zwischen verschiedenen Prozessen und Komponenten. In der Software benutzte Schnittstellen lassen sich grundsätzlich unterscheiden in:
 * Nur zur Kommunikation benutzte, datenorientierte Schnittstellen: Hierbei bleibt die Schnittstelle immer 'passiv', sie enthält lediglich die Informationen, die zwischen beteiligten Systemteilen ausgetauscht werden. Beispiel: Adressübergaben mit Verweis auf zu verwendende Daten/Informationen bei Aufruf von Unterprogrammen.
 * Schnittstellen als funktionale Einheiten: Die so benutzten Schnittstellen führen eine bestimmte Funktionalität aus, um die primär beteiligten Systemteile zu synchronisieren oder zu unterstützen.
 

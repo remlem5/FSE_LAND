@@ -61,7 +61,8 @@ public class AppTest {
             Verifizieren, dass pruefePlatz mit bestimmten Params aufgerufen wurde.
             (zum Testen auskommentieren)
          */
-        //Mockito.verify(kinosaalMock).pruefePlatz('A',12);
+        kinosaalMock.pruefePlatz('A', 10);
+        Mockito.verify(kinosaalMock).pruefePlatz('A',10);
 
         /*
             weitere Verifikationsmöglichkeiten (Behaviour Testing):

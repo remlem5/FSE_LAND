@@ -2,6 +2,7 @@ package at.itkolleg.ase.tdd.kino;
 
 import org.junit.jupiter.api.*;
 import org.junit.jupiter.params.ParameterizedTest;
+import org.junit.jupiter.params.provider.CsvSource;
 import org.opentest4j.AssertionFailedError;
 
 import java.time.LocalDate;
@@ -68,10 +69,22 @@ public class Uebungen {
         Assertions.assertThrows(IllegalArgumentException.class, () -> kv1.einplanenVorstellung(v1));
     }
 
-//    @ParameterizedTest
-//    void testTicketkaeufe() {
-//
-//    }
+    @ParameterizedTest
+    @CsvSource({"A, 3, 27", "B, 6, 25", "A,4,17", "B,1,30"})
+    void testTicketkaeufeRichtigeParameter(char reihe, int platz, float geld) {
+        Assertions.assertNotNull(v1.kaufeTicket(reihe, platz, geld));
+    }
+
+    @ParameterizedTest
+    @CsvSource({"A, 3, 2", "B, 9, 25", "A,0,17", "B,12,30"})
+    void testTicketkaeufeFalscheParameter(char reihe, int platz, float geld) {
+        try {
+            v1.kaufeTicket(reihe, platz, geld);
+        } catch (IllegalArgumentException iAE){
+            System.out.println("Ticketkauf nicht erfolgreich");
+        }
+    }
+
 
     @TestFactory
     Collection<DynamicTest> testeTickkaufMitZufallswerten() {

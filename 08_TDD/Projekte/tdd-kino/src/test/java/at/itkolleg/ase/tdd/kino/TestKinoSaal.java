@@ -8,6 +8,8 @@ import org.mockito.Mock;
 import java.util.HashMap;
 import java.util.Map;
 
+import static org.junit.jupiter.api.Assertions.assertEquals;
+
 public class TestKinoSaal {
 
     @Mock
@@ -24,7 +26,7 @@ public class TestKinoSaal {
 
     @Test
     void testName(){
-        Assertions.assertEquals("SaalTest", saalTest.getName());
+        assertEquals("SaalTest", saalTest.getName());
         Assertions.assertNotEquals("TestSaal", saalTest.getName());
     }
 

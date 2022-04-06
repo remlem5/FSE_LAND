@@ -123,4 +123,13 @@ was soll getestet werden?
     }
 ```
 
+# Parametrisierte Tests
+Testdaten werden als CSV-Daten übergeben
+```java
+    @ParameterizedTest
+    @CsvSource({"A, 3, 27", "B, 6, 25", "A,4,17", "B,1,30"})
+    void testTicketkaeufeRichtigeParameter(char reihe, int platz, float geld) {
+        Assertions.assertNotNull(v1.kaufeTicket(reihe, platz, geld));
+    }
+```
 

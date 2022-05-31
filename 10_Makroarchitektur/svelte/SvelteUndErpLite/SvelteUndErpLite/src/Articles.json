@@ -1,0 +1,20 @@
+[
+    {"productNumber":"P123456789",
+        "productName" : "Product 1 Name",
+        "priceNet" : 120.98,
+        "tax" : 20,
+        "amount": 0,
+    "src": "./src/images/Produkt1.jpg"},
+    {"productNumber": "P12345AAgg",
+        "productName" : "Product 2 Name",
+        "priceNet" : 12.98,
+        "tax" : 10,
+        "amount": 0,
+    "src": "./src/images/Produkt2.jpg"},
+    {"productNumber": "DP123BBGGG",
+        "productName" : "Product 3 Name",
+        "priceNet" : 1340,
+        "tax" : 20,
+        "amount": 0,
+    "src": "./src/images/Produkt3.jpg"}
+]
